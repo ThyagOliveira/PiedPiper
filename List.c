@@ -44,12 +44,10 @@ void clear(List * l) {
 }
 
 
-int length(List * l)
-{
+int length(List * l) {
 	return l->length;
 }
 
-int is_empty(List * l)
-{
+int is_empty(List * l) {
 	return length(l) == 0;
 }
