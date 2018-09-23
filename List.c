@@ -2,18 +2,17 @@
 #include <stdlib.h>
 #include "List.h"
 
-typedef struct no No;
+typedef struct node Node;
 
 struct list {
 	int length;
-	No * start;
-	No * end;
-	
+	Node * start;
+	Node * end;
 };
 
-struct no {
+struct node {
 	int info;
-	No * next;
+	Node * next;
 };
 
 List * create() {
@@ -21,6 +20,15 @@ List * create() {
 	l->start = NULL;
 	l->end = NULL;
 	l->length = 0;
+	return l;
+}
+
+List * addNode(List * l, int info) {
+	Node * n = (Node *)malloc(sizeof(Node));
+	n->info = info;
+	l->start = n;
+	l->end = n;
+	l->length = l->length + 1;
 	return l;
 }
 
@@ -32,9 +40,9 @@ void destroy(List * l) {
 }
 
 void clear(List * l) {
-	No * aux = l->start;
+	Node * aux = l->start;
 	while (aux != NULL) {
-		No * aux2 = aux;
+		Node * aux2 = aux;
 		aux = aux->next;
 		free(aux2);
 	}

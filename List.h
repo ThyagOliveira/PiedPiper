@@ -1,6 +1,6 @@
 typedef struct list List;
 
-List * criar();
+List * create();
 void destroy(List * l);
 void clear(List * l);
 int length(List * l);
