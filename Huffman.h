@@ -1,0 +1,15 @@
+
+  //////////////////////////
+ // Estrutura da Árvore  //
+//////////////////////////
+
+typedef struct arvore Arvore;
+
+  ///////////////////////////
+ // Opereações Genéricas  //  
+/////////////////////////// 
+
+Arvore * criar();
+void destruir(Arvore * arv);
+
+
