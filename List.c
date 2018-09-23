@@ -35,7 +35,7 @@ void clear(List * l) {
 	No * aux = l->start;
 	while (aux != NULL) {
 		No * aux2 = aux;
-		aux = aux->prox;
+		aux = aux->next;
 		free(aux2);
 	}
 	l->start = NULL;
