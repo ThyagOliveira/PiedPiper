@@ -4,7 +4,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
-#include "Huffman.h"
+#include "PiedPiper.h"
 
 
 typedef struct no No;
@@ -23,7 +23,7 @@ struct arvore {
 
 
   //////////////////////////
- // Operações Genéricas  //
+ // Operaï¿½ï¿½es Genï¿½ricas  //
 ////////////////////////// 
 
 Arvore * criar() {
