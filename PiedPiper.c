@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <locale.h>
 #include "List.h"
 
@@ -12,7 +13,7 @@ void getByteFrequency(FILE *fileToCompress, unsigned int *listaBytes)
 List * createFrequencyList(FILE *fileToCompress)
 {
   unsigned frequencyList[256] = {0};
-  List * byteFrequencyList = create();
+  List * byteFrequencyList = ListFactory();
   getByteFrequency(fileToCompress, frequencyList);  
   
   for (int i = 0; i < 256; i++)
@@ -29,7 +30,7 @@ void main() {
   setlocale(LC_ALL, "");
   title();
   		
-  menu();
+  // menu();
   printf("Pied Piper\n");
 
   FILE *fileToCompress = fopen("text.txt", "rb");
@@ -43,7 +44,7 @@ void main() {
   printList(byteFrequencyList);
 }
 void clean_screen() {
-	system("cls");
+	system("clear");
 }
 
 void credits() {
@@ -53,7 +54,7 @@ void credits() {
 }
 void instructions() {
 	 printf("Uso: huffman [OPCAO] [ARQUIVO] [ARQUIVO]\n\n");
-    printf("Opções:\n");
+    printf("OpÃ¡ï¿½es:\n");
     printf("\t-c\tCompactar\n");
     printf("\t-x\tDescompactar\n");
     printf("\nExemplo: ./huffman -c teste.txt teste.ed2\n");
@@ -64,24 +65,24 @@ void menu() {
 	char choice;
 	
 	printf("\n\n\t\tPied Piper");
-	printf("\n\n\t\t01. Instruções");
-	printf("\n\t\t02. Créditos");
+	printf("\n\n\t\t01. Instruï¿½ï¿½es");
+	printf("\n\t\t02. Crï¿½ditos");
 	printf("\n\t\t03. Sair");
-	printf("\n\n\t\tEscolha a opção: ");
+	printf("\n\n\t\tEscolha a opï¿½ï¿½o: ");
 	scanf("%s", &choice);
 	
 	switch(choice) {
 		case '1':
 			clean_screen();
 			instructions();
-			getch();
+			getchar();
 			clean_screen();
 			return menu();
 			break;
 		case '2':
 			clean_screen();
 			credits();
-			getch();
+			getchar();
 			clean_screen();
 			return menu();
 			break;
@@ -101,7 +102,7 @@ void title() {
 
 	system("title Pied Piper");
 	printf("\n\n\t\t\t Projeto de Estrutura de Dados II");
-	printf("\n\t\t\t    Kappa Produções Apresenta");
+	printf("\n\t\t\t    Kappa Produï¿½ï¿½es Apresenta");
 	printf("\n\t\t\t\t Pied Piper");
 
 	printf("\n\n-------------------------------------------------------------------------------\t");

@@ -1,15 +1,6 @@
+typedef struct tree Tree;
 
-  //////////////////////////
- // Estrutura da Árvore  //
-//////////////////////////
-
-typedef struct arvore Arvore;
-
-  ///////////////////////////
- // Opereações Genéricas  //  
-/////////////////////////// 
-
-Arvore * criar();
-void destruir(Arvore * arv);
+Tree * TreeFactory();
+void TreeDestroyer(Tree * t);
 
 
