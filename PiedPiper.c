@@ -6,23 +6,31 @@ void getByteFrequency(FILE *fileToCompress, unsigned int *listaBytes)
     byte c;
     while (fread(&c, 1, 1, fileToCompress) >= 1)
       listaBytes[(byte)c]++;
-    rewind(fileToCompress);
+}
+
+List * createFrequencyList(FILE *fileToCompress)
+{
+  unsigned frequencyList[256] = {0};
+  List * byteFrequencyList = create();
+  getByteFrequency(fileToCompress, frequencyList);  
+  for (int i = 0; i < 256; i++)
+  {
+      if (frequencyList[i])
+          insertNode(i, frequencyList[i], byteFrequencyList);
+  }
+  return byteFrequencyList;
 }
 
 void main(){
-  unsigned frequencyList[256] = {0};
-  List * listaTeste = create();
   printf("Pied Piper\n");
+
   FILE *fileToCompress = fopen("text.txt", "rb");
   if(!fileToCompress){
     printf("Erro ao abrir o arquivo!");
     return;
   }
-  getByteFrequency(fileToCompress, frequencyList);  
-  for (int i = 0; i < 256; i++)
-  {
-      if (frequencyList[i])
-          insertNode(i, frequencyList[i], listaTeste);
-  }
-  printList(listaTeste);
+  
+  List * byteFrequencyList = createFrequencyList(fileToCompress);  
+  
+  printList(byteFrequencyList);
 }
