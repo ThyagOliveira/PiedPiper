@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "List.h"
+#include "TreeNodeList.h"
 #include "Tree.h"
 
 //PEGA A FREQUENCIA DE CADA BYTE NO ARQUIVO.
@@ -13,24 +12,21 @@ void getByteFrequency(FILE *fileToCompress, unsigned int *listaBytes)
 }
 
 //CRIA UMA LISTA ENCADEADA ORDENADA COM A FREQUENCIA DOS BYTES ENCONTRADOS NO ARQUIVO
-List * createFrequencyList(FILE *fileToCompress)
+TreeNodeList * createFrequencyList(FILE *fileToCompress)
 {
   unsigned frequencyList[256] = {0};
-  List * byteFrequencyList = ListFactory();
+  TreeNodeList * byteFrequencyList = TreeNodeListFactory();
   getByteFrequency(fileToCompress, frequencyList);  
   
   for (int i = 0; i < 256; i++)
   {
       if (frequencyList[i])
-          insertNode(i, frequencyList[i], byteFrequencyList);
+          InsertNode(i, frequencyList[i], byteFrequencyList);
   }
   return byteFrequencyList;
 }
 
 void main() {
-	//setlocale(LC_ALL, "");
-  //title();  		
-  // menu();
   printf("Pied Piper\n");
 
   FILE *fileToCompress = fopen("text.txt", "rb");
@@ -39,10 +35,10 @@ void main() {
     return;
   }
   
-  List * byteFrequencyList = createFrequencyList(fileToCompress);
-	Tree * huffmanTree = TreeFactory(byteFrequencyList);
-	
-  printList(byteFrequencyList);
+  TreeNodeList * byteFrequencyList = createFrequencyList(fileToCompress);
+	//Tree * huffmanTree = TreeFactory(byteFrequencyList);	
+  PrintList(byteFrequencyList);
+	TreeNodeListDestroyer(byteFrequencyList);
 }
 
 

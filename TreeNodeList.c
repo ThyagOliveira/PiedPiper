@@ -21,8 +21,8 @@ struct treeNode {
 	TreeNode * right;
 };
 
-List * ListFactory() {
-	List * l = (List *)malloc(sizeof(List));
+TreeNodeList * TreeNodeListFactory() {
+	TreeNodeList * l = (TreeNodeList *)malloc(sizeof(TreeNodeList));
 	l->start = NULL;
 	l->length = 0;
 	return l;
@@ -35,14 +35,7 @@ Node * ListNodeFactory(byte value, int frequency) {
 	return n;
 }
 
-void ListDestroyer(List * l) {
-	if (l != NULL) {
-		clear(l);
-		free(l);
-	}
-}
-
-void clear(List * l) {
+void clear(TreeNodeList * l) {
 	Node * aux = l->start;
 	while (aux != NULL) {
 		Node * aux2 = aux;
@@ -53,15 +46,22 @@ void clear(List * l) {
 	l->length = 0;
 }
 
-int length(List * l) {
+void TreeNodeListDestroyer(TreeNodeList * l) {
+	if (l != NULL) {
+		clear(l);
+		free(l);
+	}
+}
+
+int Length(TreeNodeList * l) {
 	return l->length;
 }
 
-int is_empty(List * l) {
-	return length(l) == 0;
+int IsEmpty(TreeNodeList * l) {
+	return Length(l) == 0;
 }
 
-void insertNode(byte value, unsigned int frequency, List *l)
+void InsertNode(byte value, unsigned int frequency, TreeNodeList *l)
 {    
     Node * n = ListNodeFactory(value, frequency);
     if (!l->start)
@@ -88,14 +88,14 @@ void insertNode(byte value, unsigned int frequency, List *l)
     l->length++;
 }
 
-void printList(List * l)
+void PrintList(TreeNodeList * l)
 {
     Node * foo = l->start;    
+    printf("[\n");
     while (foo != NULL)
-    {
-        printf("[ ");
-        printf("%c, %d", GetValue(foo->treeNode), GetFrequency(foo->treeNode));
-        printf("]\n");
+    {        
+        printf("(%c, %d),\n", GetValue(foo->treeNode), GetFrequency(foo->treeNode));        
         foo = foo->next;
-    }    
+    }   
+    printf("]\n"); 
 }

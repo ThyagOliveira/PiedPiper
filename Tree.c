@@ -10,13 +10,7 @@ struct tree {
 	TreeNode * root;
 };
 
-Tree * TreeFactory() {
-	Tree * t = (Tree *) malloc(sizeof(Tree));
-	t->root = NULL;
-	return t;
-}
-
-Tree * TreeFactory(List * list) {
+Tree * TreeFactory(TreeNodeList * list) {
 	Tree * t = (Tree *) malloc(sizeof(Tree));
 	t->root = NULL;
 	return t;
