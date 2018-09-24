@@ -1,33 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "List.h"
-typedef struct Node Node;
+typedef struct node Node;
+typedef struct list List;
+
 struct list {
 	int length;
 	Node * start;
-	Node * end;
 };
-
-struct Node {
-	int info;
+struct node {
+    byte value;
+	unsigned frequency;
 	Node * next;
 };
 
 List * create() {
 	List * l = (List *)malloc(sizeof(List));
 	l->start = NULL;
-	l->end = NULL;
 	l->length = 0;
 	return l;
 }
 
-List * addNode(List * l, int info) {
+Node * createNode(byte value, unsigned frequency) {
 	Node * n = (Node *)malloc(sizeof(Node));
-	n->info = info;
-	l->start = n;
-	l->end = n;
-	l->length = l->length + 1;
-	return l;
+	n->value = value;
+	n->frequency = frequency;
+	return n;
 }
 
 void destroy(List * l) {
@@ -45,7 +43,6 @@ void clear(List * l) {
 		free(aux2);
 	}
 	l->start = NULL;
-	l->end = NULL;
 	l->length = 0;
 }
 
@@ -58,81 +55,41 @@ int is_empty(List * l) {
 	return length(l) == 0;
 }
 
-void inserir_pos(List * l, int p, int v)
-{
-    int i;
-    Node * aux = l->start, * aux2;
-
-    if (p < 0 || p > Length(l))
+void insertNode(byte value, unsigned frequency, List *l)
+{    
+    Node * n = createNode(value, frequency);
+    if (!l->start)
     {
-        printf("Posicao invalida!\n");
-        return;
+        l->start= n;
     }
-
-    aux2 = (Node *)malloc(sizeof(Node));
-    aux2->info = v;
-    aux2->next = NULL;
-    if (p > 0 && p < l->length)
+    else if (n->frequency < l->start->frequency)
     {
-        for (i=0; i<p-1; i++)
-            aux = aux->next;
-
-        aux2->next = aux->next;
-        aux->next = aux2;
+        n->next = l->start;
+        l->start = n;
     }
     else
-    {
-        if (p == 0)
+    {        
+        Node *foo = l->start->next;        
+        Node *bar = l->start;        
+        while (foo && foo->frequency <= n->frequency)
         {
-            aux2->next = l->start;
-            l->start = aux2;
+            bar = foo;
+            foo = bar->next;
         }
-        if (p == l->length)
-        {
-            if (l->end != NULL)
-                l->end->next = aux2;
-
-            l->end = aux2;
-        }
+        bar->next = n;
+        n->next = foo;
     }
-
     l->length++;
 }
 
-void insert_first(List * l, int v)
+void printList(List * l)
 {
-    inserir_pos(l, 0, v);
-}
-
-void insert_last(List * l, int v)
-{
-    inserir_pos(l, Length(l), v);
-}
-
-int search(List * l, int v)
-{
-    int p = 0;
-    Node * aux = l->start;
-
-    while (aux != NULL && aux->info != v)
+    Node * foo = l->start;    
+    while (foo != NULL)
     {
-        aux = aux->next;
-        p++;
-    }
-
-    return aux != NULL ? p : -1;
-}
-int read_index(List * l, int p)
-{
-    int i;
-    Node * aux = l->start;
-    if (p < 0 || p >= Length(l))
-    {
-        printf("Posicao invalida!\n");
-        return -1;
-    }
-    for (i=0; i<p; i++)
-        aux = aux->next;
-
-    return aux->info;
+        printf("[ ");
+        printf("%c, %d", foo->value, foo->frequency);
+        printf("]\n");
+        foo = foo->next;
+    }    
 }
