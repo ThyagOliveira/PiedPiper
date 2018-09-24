@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
-#include "List.h"
 
+#include "List.h"
+#include "Tree.h"
+
+//PEGA A FREQUENCIA DE CADA BYTE NO ARQUIVO.
 void getByteFrequency(FILE *fileToCompress, unsigned int *listaBytes)
 {
     byte c;
@@ -10,6 +12,7 @@ void getByteFrequency(FILE *fileToCompress, unsigned int *listaBytes)
       listaBytes[(byte)c]++;
 }
 
+//CRIA UMA LISTA ENCADEADA ORDENADA COM A FREQUENCIA DOS BYTES ENCONTRADOS NO ARQUIVO
 List * createFrequencyList(FILE *fileToCompress)
 {
   unsigned frequencyList[256] = {0};
@@ -24,12 +27,9 @@ List * createFrequencyList(FILE *fileToCompress)
   return byteFrequencyList;
 }
 
-
 void main() {
-	
-  setlocale(LC_ALL, "");
-  title();
-  		
+	//setlocale(LC_ALL, "");
+  //title();  		
   // menu();
   printf("Pied Piper\n");
 
@@ -39,10 +39,26 @@ void main() {
     return;
   }
   
-  List * byteFrequencyList = createFrequencyList(fileToCompress);  
-  
+  List * byteFrequencyList = createFrequencyList(fileToCompress);
+	Tree * huffmanTree = TreeFactory(byteFrequencyList);
+	
   printList(byteFrequencyList);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// MENU
 void clean_screen() {
 	system("clear");
 }

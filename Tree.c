@@ -1,14 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "Tree.h"
+#include "TreeNode.h"
+#include "TreeNodeList.h"
 
 typedef unsigned char byte;
 typedef struct tree Tree;
-typedef struct treeNode TreeNode;
-struct treeNode {
-	byte value;
-	int frequency;
-	TreeNode * left;
-	TreeNode * right;
-};
 struct tree {
 	TreeNode * root;
 };
@@ -19,15 +16,13 @@ Tree * TreeFactory() {
 	return t;
 }
 
-void TreeDesotryerRecursive(TreeNode * n) {
-	if (n != NULL) {
-		destroyTree_rec(n->left);
-		destroyTree_rec(n->right);
-		free(n);
-	}
+Tree * TreeFactory(List * list) {
+	Tree * t = (Tree *) malloc(sizeof(Tree));
+	t->root = NULL;
+	return t;
 }
 
 void TreeDesotryer(Tree * t) {
-	destroyTree_rec(t->root);
+	TreeNodeDestroyer(t->root);
 	free(t);
 }

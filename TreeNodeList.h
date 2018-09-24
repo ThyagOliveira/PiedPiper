@@ -1,3 +1,5 @@
+#include "TreeNode.h"
+
 typedef unsigned char byte;
 typedef struct list List;
 
