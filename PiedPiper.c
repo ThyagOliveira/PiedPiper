@@ -6,39 +6,40 @@
 //PEGA A FREQUENCIA DE CADA BYTE NO ARQUIVO.
 void getByteFrequency(FILE *fileToCompress, unsigned int *listaBytes)
 {
-    byte c;
-    while (fread(&c, 1, 1, fileToCompress) >= 1)
-      listaBytes[(byte)c]++;
+	byte c;
+	while (fread(&c, 1, 1, fileToCompress) >= 1)
+		listaBytes[(byte)c]++;
 }
 
 //CRIA UMA LISTA ENCADEADA ORDENADA COM A FREQUENCIA DOS BYTES ENCONTRADOS NO ARQUIVO
-TreeNodeList * createFrequencyList(FILE *fileToCompress)
-{
-  unsigned frequencyList[256] = {0};
-  TreeNodeList * byteFrequencyList = TreeNodeListFactory();
-  getByteFrequency(fileToCompress, frequencyList);  
-  
-  for (int i = 0; i < 256; i++)
-  {
-      if (frequencyList[i])
-          InsertNode(i, frequencyList[i], byteFrequencyList);
-  }
-  return byteFrequencyList;
+TreeNodeList * createFrequencyList(FILE *fileToCompress) {
+	unsigned frequencyList[256] = {0};
+	TreeNodeList * byteFrequencyList = TreeNodeListFactory();
+	getByteFrequency(fileToCompress, frequencyList);  
+	
+	for (int i = 0; i < 256; i++)
+	{
+		if (frequencyList[i])
+			InsertNode(i, frequencyList[i], byteFrequencyList);
+	}
+	return byteFrequencyList;
 }
 
 void main() {
-  printf("Pied Piper\n");
+	printf("Pied Piper\n");
+	menu();
+	FILE *fileToCompress = fopen("text.txt", "rb");
+	if(!fileToCompress){
+	printf("Erro ao abrir o arquivo!");
+	return;
+	}
 
-  FILE *fileToCompress = fopen("text.txt", "rb");
-  if(!fileToCompress){
-    printf("Erro ao abrir o arquivo!");
-    return;
-  }
-  
-  TreeNodeList * byteFrequencyList = createFrequencyList(fileToCompress);
+	TreeNodeList * byteFrequencyList = createFrequencyList(fileToCompress);
 	//Tree * huffmanTree = TreeFactory(byteFrequencyList);	
-  PrintList(byteFrequencyList);
+	PrintList(byteFrequencyList);
 	TreeNodeListDestroyer(byteFrequencyList);
+
+	printf("Hello World"!\n");
 }
 
 
